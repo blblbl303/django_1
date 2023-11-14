@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title|default:"Без заголовка" }}</title>
+</head>
+<body>
+<ul>
+    <li><a href="{% url 'home' %}">Главная страница</a> </li>
+    {% for m in menu %}
+    {% if not forloop.last %}<li>{% else %}<li class ="last">{% endif %}
+        <a href="{% url m.url_name %}">{{ m.title }}</a>
+    </li>
+    {% endfor %}
+</ul>
+<h1>{{ title }}</h1>
+<ul>
+    {% for p in posts %}
+    {% if p.is_published %}
+    <li>
+        <h2>{{ p.title }}</h2>
+        <p>{{ p.content }}</p>
+        <P><a href="{% url 'post' p.id %}">Читать пост</a></P>
+        {% if not forloop.last %}
+        <hr>
+        {% endif %}
+    </li>
+    {% endif %}
+    {% endfor %}
+</ul>
+</body>
+</html>
